@@ -1,0 +1,92 @@
+:root{
+  --app-padding: 25%;
+  --background: white;
+  --color: inherit;
+  --header-text: inherit;
+  --header-link: inherit;
+  --button-color: inherit;
+}
+html{
+  background-color: var(--background);
+}
+.App {
+  /* text-align: center; */
+  padding-left: var(--app-padding);
+  padding-right: var(--app-padding);
+  
+  color: var(--color);
+  min-height: 100%;
+}
+
+.App-logo {
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #09d3ac;
+}
+
+li {
+  list-style: none;
+  padding-bottom: 5px;
+}
+a{
+  text-decoration: none;
+  color: var(--button-color)
+}
+.App-title{
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+ul{
+  padding:0;
+}
+.App-new{
+  font-weight: bolder;
+}
+
+.App-idea:hover{
+  background-color: #dcdcdc4d;
+}
+.App-idea{
+  padding: 10px;
+}
+
+.App-search{
+  width: 100%;
+  max-width: 40em;
+  height: 2em;
+}
+
+.App-header-text{
+  color: var(--header-text)
+}
+header a {
+  color: var(--header-link);
+}
+.App-comment{
+  padding: 10px;
+  background-color: #dcdcdc4d;
+}
+.App-comment:hover{
+  background-color:#dcdcdcb8;
+}
+
+.App-comment-area{
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
