@@ -129,10 +129,17 @@ export const draftIdea = idea => dispatch => {
 };
 export const setRead = id => async dispatch => {
   const res = await idea.doc(id).get();
-  await idea.doc(id).set({ ...res.data(), reads: (res.data().reads || 1) + 1 });
+  await idea.doc(id).set({ ...res.data(), reads: (res.data().reads || 0) + 1 });
   dispatch(createAction(ACTIONS.SET_READ, {}));
 };
 
 export const resetIdeaDetail = _ => dispatch => {
   dispatch(createAction(ACTIONS.RESET_IDEA_DETAIL, {}));
 };
+
+export const clap = idea1 =>async dispatch => {
+  const res = await idea.doc(idea1.id).get();
+  await idea.doc(idea1.id).set({ ...res.data(), claps: (res.data().claps || 0) + 1 });
+  const d = await idea.doc(idea1.id).get();
+  dispatch(createAction(ACTIONS.CLAP, {id: d.id, ...d.data()}));
+}

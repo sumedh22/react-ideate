@@ -43,7 +43,8 @@ li {
 }
 a{
   text-decoration: none;
-  color: var(--button-color)
+  color: var(--button-color);
+  cursor: pointer;
 }
 .App-title{
   font-size: 1.75rem;

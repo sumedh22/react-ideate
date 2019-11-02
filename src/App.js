@@ -25,12 +25,19 @@ function Load() {
   const dispatch = useDispatch();
   return (
     <>
-      {!loggedIn && <><header><DayNightMode /></header><NoAccess /></>}
+      {!loggedIn && (
+        <>
+          <header>
+            <DayNightMode />
+          </header>
+          <NoAccess />
+        </>
+      )}
       {loggedIn && (
         <Router>
           <header>
             <Link title="Home" to="/" className="App-new">
-              Home
+              Ideate
             </Link>
             {" | "}
             <Link
@@ -44,7 +51,6 @@ function Load() {
             <a title="Log out" href="#" onClick={e => dispatch(doLogout())}>
               logout
             </a>
-            {" | "}
             <DayNightMode />
           </header>
           <Switch>

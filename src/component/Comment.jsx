@@ -19,7 +19,7 @@ const Comment = props => {
           </li>
         ))}
       </ul>
-      <textarea placeholder="Enter a comment" className="App-comment-area" value={comment} onChange={e => setComment(e.target.value)} />
+      <textarea rows="5" placeholder="Enter a comment" className="App-comment-area" value={comment} onChange={e => setComment(e.target.value)} />
       <a href="#" onClick={e => dispatch(postComment(props.id, comment, user))}>
         Post
       </a>

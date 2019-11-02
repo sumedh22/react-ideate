@@ -52,6 +52,11 @@ const reducer = (state = defaultState, action) => {
       return { ...state, newIdea: { ...state.newIdea, ...action.payload } };
     case ACTIONS.RESET_IDEA_DETAIL:
       return { ...state, detail: defaultState.detail };
+    case ACTIONS.CLAP:
+      return {
+        ...state,
+        detail: { idea: { ...action.payload }, comment: state.detail.comment }
+      };
     default:
       return state;
   }
