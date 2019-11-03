@@ -14,7 +14,7 @@ const IdeaCreate = props => {
   return (
     <div>
       <Tag />
-      <h1 className="App-header-text">Idea Create</h1>
+      <h1 className="App-header-text">Share Idea</h1>
       <input
         placeholder="Title..."
         value={idea.title}

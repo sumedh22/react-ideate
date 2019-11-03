@@ -47,10 +47,16 @@ export const getIdea = id => async dispatch => {
   );
 };
 export const createIdea = newIdea => async dispatch => {
-  dispatch(createAction(ACTIONS.PROCESS_SUBMITTING_IDEA, {}));
+  if(!newIdea.title){
+    return dispatch(
+      createAction(
+        ACTIONS.NOTIFICATION,
+        createNotification(`Title is mandatory!`, 3000, null)
+      )
+    );
+  }
   try {
     await idea.doc().set(newIdea);
-    dispatch(createAction(ACTIONS.SUBMISSION_COMPLETE, {}));
     dispatch(
       createAction(
         ACTIONS.NOTIFICATION,
@@ -154,6 +160,14 @@ export const setMode = night => dispatch => {
 };
 
 export const postComment = (ideaId, comment, user) => async dispatch => {
+  if(!comment){
+    return dispatch(
+      createAction(
+        ACTIONS.NOTIFICATION,
+        createNotification(`Comment is mandatory!`, 3000, null)
+      )
+    );
+  }
   try {
     await idea
       .doc(ideaId)

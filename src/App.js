@@ -12,7 +12,7 @@ import NoAccess from "./page/NoAccess";
 
 //components
 import DayNightMode from "./component/Mode";
-import Notification from './component/Notification';
+import Notification from "./component/Notification";
 //redux
 import getStoreAndPersistor from "./state/store";
 import { Provider } from "react-redux";
@@ -24,54 +24,44 @@ function Load() {
   const loggedIn = useSelector(state => state.user.loggedIn, shallowEqual);
   const dispatch = useDispatch();
   return (
-    <>
-      {!loggedIn && (
-        <>
-          <header>
-            <DayNightMode />
-          </header>
+    <Router>
+      <header>
+        <Link title="Home" to="/" className="App-new">
+          Ideate
+        </Link>
+        {" | "}
+        <Link title="Submit a new one" to="/idea-create" className="App-new">
+          New
+        </Link>
+        {" | "}
+        {loggedIn && <a title="Log out" href="#" onClick={e => dispatch(doLogout())}>
+          Logout
+        </a>}
+        {!loggedIn && <Link title="Home" to="/signup" className="App-new">
+          Get access
+        </Link>}
+        
+        <DayNightMode />
+      </header>
+      <Switch>
+        <Route exact path="/">
+          <Landing />
+        </Route>
+        <Route path="/dashboard">
+          <Dashboard />
+        </Route>
+        <Route path="/idea-create">
+          <IdeaCreate />
+        </Route>
+        <Route path="/idea-detail/:id">
+          <IdeaDetail />
+        </Route>
+        <Route path="/signup">
           <NoAccess />
-        </>
-      )}
-      {loggedIn && (
-        <Router>
-          <header>
-            <Link title="Home" to="/" className="App-new">
-              Ideate
-            </Link>
-            {" | "}
-            <Link
-              title="Submit a new one"
-              to="/idea-create"
-              className="App-new"
-            >
-              new
-            </Link>
-            {" | "}
-            <a title="Log out" href="#" onClick={e => dispatch(doLogout())}>
-              logout
-            </a>
-            <DayNightMode />
-          </header>
-          <Switch>
-            <Route exact path="/">
-              <Landing />
-            </Route>
-            <Route path="/dashboard">
-              <Dashboard />
-            </Route>
-            <Route path="/idea-create">
-              <IdeaCreate />
-            </Route>
-            <Route path="/idea-detail/:id">
-              <IdeaDetail />
-            </Route>
-          </Switch>
-          
-        </Router>
-      )}
-      <Notification/>
-    </>
+        </Route>
+      </Switch>
+      <Notification />
+    </Router>
   );
 }
 

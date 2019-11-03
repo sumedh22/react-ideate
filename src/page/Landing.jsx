@@ -29,7 +29,7 @@ const Landing = props => {
   };
   return (
     <div>
-      <h1 className="App-header-text">Ideate</h1>
+      <h1 className="App-header-text">Search Ideas</h1>
       <input
         ref={searchInput}
         className="App-search"
