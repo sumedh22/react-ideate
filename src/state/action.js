@@ -10,6 +10,9 @@ const createAction = (type, payload) => {
   console.log({ type, payload });
   return { type, payload };
 };
+const createNotification = (message, timeout, actionText) => {
+  return { id: new Date().getTime(), message, timeout, actionText };
+};
 export const getResults = searchText => dispatch => {
   if (!searchText) {
     idea.orderBy("reads", "desc").onSnapshot(snapshot => {
@@ -46,10 +49,21 @@ export const getIdea = id => async dispatch => {
 export const createIdea = newIdea => async dispatch => {
   dispatch(createAction(ACTIONS.PROCESS_SUBMITTING_IDEA, {}));
   try {
-    const res = await idea.doc().set(newIdea);
+    await idea.doc().set(newIdea);
     dispatch(createAction(ACTIONS.SUBMISSION_COMPLETE, {}));
+    dispatch(
+      createAction(
+        ACTIONS.NOTIFICATION,
+        createNotification("Successfully posted new Idea", null, null)
+      )
+    );
   } catch (e) {
-    dispatch(createAction(ACTIONS.FAILED_TO_SUBMIT_IDEA, {}));
+    dispatch(
+      createAction(
+        ACTIONS.NOTIFICATION,
+        createNotification("Failed to post new Idea", 3000, null)
+      )
+    );
   }
 };
 
@@ -63,16 +77,46 @@ export const doLogin = ({ username, password }) => async dispatch => {
         displayName: res.user.displayName
       })
     );
+    dispatch(
+      createAction(
+        ACTIONS.NOTIFICATION,
+        createNotification(`Logged in successfully!`, 3000, null)
+      )
+    );
   } catch (err) {
-    console.error(err);
+    dispatch(
+      createAction(
+        ACTIONS.NOTIFICATION,
+        createNotification(
+          `Unable to login. Error from server: ${JSON.stringify(err)}`,
+          null,
+          null
+        )
+      )
+    );
   }
 };
 export const doLogout = _ => async dispatch => {
   try {
     await logout();
     dispatch(createAction(ACTIONS.LOGOUT, {}));
+    dispatch(
+      createAction(
+        ACTIONS.NOTIFICATION,
+        createNotification(`Logged out successfully!`, null, null)
+      )
+    );
   } catch (err) {
-    console.error(err);
+    dispatch(
+      createAction(
+        ACTIONS.NOTIFICATION,
+        createNotification(
+          `Unable to logout. Error from server: ${JSON.stringify(err)}`,
+          null,
+          null
+        )
+      )
+    );
   }
 };
 export const doRegister = ({ username, password }) => async dispatch => {
@@ -85,8 +129,23 @@ export const doRegister = ({ username, password }) => async dispatch => {
         displayName: res.user.displayName
       })
     );
+    dispatch(
+      createAction(
+        ACTIONS.NOTIFICATION,
+        createNotification(`Registered successfully!`, null, null)
+      )
+    );
   } catch (err) {
-    console.error(err);
+    dispatch(
+      createAction(
+        ACTIONS.NOTIFICATION,
+        createNotification(
+          `Unable to register. Error from server: ${JSON.stringify(err)}`,
+          null,
+          null
+        )
+      )
+    );
   }
 };
 
@@ -110,8 +169,23 @@ export const postComment = (ideaId, comment, user) => async dispatch => {
         postedBy: user.displayName
       })
     );
+    dispatch(
+      createAction(
+        ACTIONS.NOTIFICATION,
+        createNotification(`Comment added successfully!`, 3000, null)
+      )
+    );
   } catch (err) {
-    console.error(err);
+    dispatch(
+      createAction(
+        ACTIONS.NOTIFICATION,
+        createNotification(
+          `Unable to add comment. Error from server: ${JSON.stringify(err)}`,
+          null,
+          null
+        )
+      )
+    );
   }
 };
 
@@ -137,9 +211,28 @@ export const resetIdeaDetail = _ => dispatch => {
   dispatch(createAction(ACTIONS.RESET_IDEA_DETAIL, {}));
 };
 
-export const clap = idea1 =>async dispatch => {
+export const clap = idea1 => async dispatch => {
   const res = await idea.doc(idea1.id).get();
-  await idea.doc(idea1.id).set({ ...res.data(), claps: (res.data().claps || 0) + 1 });
+  await idea
+    .doc(idea1.id)
+    .set({ ...res.data(), claps: (res.data().claps || 0) + 1 });
   const d = await idea.doc(idea1.id).get();
-  dispatch(createAction(ACTIONS.CLAP, {id: d.id, ...d.data()}));
-}
+  dispatch(createAction(ACTIONS.CLAP, { id: d.id, ...d.data() }));
+};
+
+export const toggleUserSelectTag = tag => dispatch => {
+  dispatch(createAction(ACTIONS.TOGGLE_USER_SELECTED_TAG, tag));
+};
+
+export const notify = notification => dispatch => {
+  dispatch(
+    createAction(ACTIONS.NOTIFICATION, {
+      id: new Date().getTime(),
+      ...notification
+    })
+  );
+};
+
+export const clearNotification = _ => dispatch => {
+  dispatch(createAction(ACTIONS.CLEAR_NOTIFICATION, {}));
+};

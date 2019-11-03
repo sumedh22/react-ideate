@@ -22,7 +22,7 @@ const IdeaDetail = props => {
       <h2>{idea.title}</h2>
       <p>{idea.detail}</p>
       <a title="Clap!" onClick={e => dispatch(clap(idea))}>
-        {idea.claps} Claps
+        {(idea.claps || 'No')} Claps
       </a>
       <a style={{ float: "right" }} title="Total reads">
         {idea.reads} Reads

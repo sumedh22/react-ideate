@@ -6,7 +6,7 @@ const NoAccess = props => {
   const [login, setLogin] = useState(true);
 
   return (
-    <div>
+    <div className="App-no-access-container">
       <h1 className="App-header-text">Seems like you have not logged in!</h1>
       <a href="#" onClick={e => setLogin(true)}>
         Log In

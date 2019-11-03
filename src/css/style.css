@@ -28,7 +28,9 @@
 
 .icon-wb_sunny:before {
   content: "\e900";
+  transition-duration: 300ms;
 }
 .icon-nights_stay:before {
   content: "\e901";
+  transition-duration: 300ms;
 }

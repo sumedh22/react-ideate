@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { getTags, draftIdea } from "../state/action";
+import { getTags, draftIdea, toggleUserSelectTag } from "../state/action";
 
 const Tag = props => {
   const dispatch = useDispatch();
   const data = useSelector(state => state.tags, shallowEqual);
   const tags = useSelector(state => state.newIdea.tags, shallowEqual);
 
-  const idea = useSelector(
-    state => (state.newIdea),
-    shallowEqual
-  );
+  const idea = useSelector(state => state.newIdea, shallowEqual);
   const [dataWithRegex, setDataWithRegex] = useState([]);
   useEffect(_ => {
     dispatch(getTags());
@@ -48,8 +45,16 @@ const Tag = props => {
   );
   return (
     <div>
-      {tags.map(t => (
-        <span key={t}>{t}</span>
+      {data.map(t => (
+        <a
+          onClick={e => dispatch(toggleUserSelectTag(t.value))}
+          className={
+            tags.includes(t.value) ? "App-tag-selected" : "App-tag-unselected"
+          }
+          key={t.value}
+        >
+          <span>{t.name}</span>
+        </a>
       ))}
     </div>
   );

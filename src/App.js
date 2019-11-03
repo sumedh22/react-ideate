@@ -12,7 +12,7 @@ import NoAccess from "./page/NoAccess";
 
 //components
 import DayNightMode from "./component/Mode";
-
+import Notification from './component/Notification';
 //redux
 import getStoreAndPersistor from "./state/store";
 import { Provider } from "react-redux";
@@ -67,8 +67,10 @@ function Load() {
               <IdeaDetail />
             </Route>
           </Switch>
+          
         </Router>
       )}
+      <Notification/>
     </>
   );
 }
@@ -78,7 +80,9 @@ function App() {
     <div className="App">
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <Load />
+          <React.StrictMode>
+            <Load />
+          </React.StrictMode>
         </PersistGate>
       </Provider>
     </div>

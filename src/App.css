@@ -1,21 +1,92 @@
-:root{
-  --app-padding: 25%;
-  --background: white;
-  --color: inherit;
-  --header-text: inherit;
-  --header-link: inherit;
-  --button-color: inherit;
+:root {
+  --app-padding: 1em;
+  --app-width-max: 700px;
+  --background-light: white;
+  --background-dark: black;
+
+  --color-light: inherit;
+  --color-dark: white;
+
+  --header-text-light: #2f96b7;
+  --header-text-dark: navajowhite;
+
+  --header-link-light: inherit;
+  --header-link-dark: #7fffd4fa;
+
+  --button-color-light: inherit;
+  --button-color-dark: hotpink;
+
+  --notification-background-color-light: black;
+  --notification-background-color-dark: darkslategray;
 }
-html{
+.App-notification {
+  display: flex;
+  flex: 1;
+  color: white;
+  margin-bottom: 1em;
+}
+.App-notification-container{
+  position: absolute;
+  bottom: 2vh;
+  width: 100%;
+  max-width: 700px;
+}
+.App-no-access-container{
+  text-align: center;
+}
+.light {
+  background-color: var(--background-light);
+  color: var(--color-light);
+  transition-duration: 300ms;
+}
+.dark {
+  background-color: var(--background-dark);
+  color: var(--color-dark);
+  transition-duration: 300ms;
+}
+.light a {
+  color: var(--button-color-light);
+}
+.dark a {
+  color: var(--button-color-dark);
+}
+.light .App-header-text {
+  color: var(--header-text-light);
+}
+.dark .App-header-text {
+  color: var(--header-text-dark);
+}
+
+.light header a {
+  color: var(--header-link-light);
+}
+.dark header a {
+  color: var(--header-link-dark);
+}
+.light .App-tag-unselected {
+  color: var(--button-color-light);
+}
+.dark .App-tag-unselected {
+  color: var(--button-color-dark);
+}
+
+.light .App-notification{
+  background-color: var(--notification-background-color-light);
+}
+.dark .App-notification{
+  background-color: var(--notification-background-color-dark);
+}
+/* body{
   background-color: var(--background);
-}
+} */
 .App {
   /* text-align: center; */
-  padding-left: var(--app-padding);
-  padding-right: var(--app-padding);
-  
-  color: var(--color);
+  padding: var(--app-padding);
+  /* padding-right: var(--app-padding); */
+  max-width: var(--app-width-max);
+  /* color: var(--color); */
   min-height: 100%;
+  margin: auto;
 }
 
 .App-logo {
@@ -41,53 +112,69 @@ li {
   list-style: none;
   padding-bottom: 5px;
 }
-a{
+a {
   text-decoration: none;
-  color: var(--button-color);
+
   cursor: pointer;
 }
-.App-title{
+.App-title {
   font-size: 1.75rem;
   font-weight: 700;
 }
-ul{
-  padding:0;
+ul {
+  padding: 0;
 }
-.App-new{
+
+p {
+  word-break: break-word;
+}
+.App-new {
   font-weight: bolder;
 }
 
-.App-idea:hover{
+.App-idea:hover {
   background-color: #dcdcdc4d;
 }
-.App-idea{
+.App-idea {
   padding: 10px;
 }
 
-.App-search{
+.App-search {
   width: 100%;
   max-width: 40em;
   height: 2em;
 }
 
-.App-header-text{
-  color: var(--header-text)
-}
-header a {
-  color: var(--header-link);
-}
-.App-comment{
+.App-comment {
   padding: 10px;
   background-color: #dcdcdc4d;
 }
-.App-comment:hover{
-  background-color:#dcdcdcb8;
+.App-comment:hover {
+  background-color: #dcdcdcb8;
 }
 
-.App-comment-area{
+.App-comment-area {
   width: 100%;
   padding-top: 10px;
   padding-bottom: 10px;
   margin-bottom: 10px;
   margin-top: 10px;
+}
+
+.App-tag-selected {
+  background-color: hotpink;
+  color: white;
+  border-radius: 5px;
+  margin: 8px;
+}
+.App-tag-unselected {
+  background-color: var(--color);
+
+  border-radius: 5px;
+  margin: 8px;
+  border: 1px solid var(--header-text);
+}
+.App-tag-selected span,
+.App-tag-unselected span {
+  padding: 5px;
 }

@@ -7,7 +7,8 @@ const defaultState = {
   user: { loggedIn: false },
   night: false,
   tags: [],
-  newIdea: { tags: [], title: "", detail: "", reads: 1 }
+  newIdea: { tags: [], title: "", detail: "", reads: 1 },
+  notification: { message: "", messageType: "", timeout: 0 }
 };
 const reducer = (state = defaultState, action) => {
   switch (action.type) {
@@ -57,6 +58,19 @@ const reducer = (state = defaultState, action) => {
         ...state,
         detail: { idea: { ...action.payload }, comment: state.detail.comment }
       };
+    case ACTIONS.TOGGLE_USER_SELECTED_TAG:
+      const tag = state.newIdea.tags.includes(action.payload);
+      let newTags = [];
+      if (tag) {
+        newTags = state.newIdea.tags.filter(i => i !== action.payload);
+      } else {
+        newTags = [...state.newIdea.tags, action.payload];
+      }
+      return { ...state, newIdea: { ...state.newIdea, tags: newTags } };
+    case ACTIONS.NOTIFICATION:
+      return { ...state, notification: { ...action.payload } };
+    case ACTIONS.CLEAR_NOTIFICATION:
+      return { ...state, notification: { ...defaultState.notification } };
     default:
       return state;
   }

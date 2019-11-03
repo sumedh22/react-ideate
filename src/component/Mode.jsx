@@ -8,11 +8,7 @@ const DayNightMode = props => {
 
   useEffect(
     _ => {
-        document.documentElement.style.setProperty("--background", night? 'black': 'white');
-        document.documentElement.style.setProperty("--color", night? 'white': '');
-        document.documentElement.style.setProperty("--header-text", night? 'navajowhite': '#2f96b7');
-        document.documentElement.style.setProperty("--header-link", night? '#7fffd4fa': '');
-        document.documentElement.style.setProperty("--button-color", night? 'hotpink': '');
+        document.body.className = night ? 'dark':'light'
     },
     [night]
   );
